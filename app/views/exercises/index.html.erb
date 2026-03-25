@@ -1,0 +1,37 @@
+<h1>Exercises</h1>
+
+<%= form_with url: exercises_path, method: :get, local: true do %>
+  <p>
+    <%= label_tag :search, "Search exercises" %><br>
+    <%= text_field_tag :search, params[:search] %>
+  </p>
+
+  <p>
+    <%= label_tag :category_id, "Filter by category" %><br>
+    <%= select_tag :category_id,
+        options_from_collection_for_select(Category.order(:name), :id, :name, params[:category_id]),
+        include_blank: "All Categories" %>
+  </p>
+
+  <p>
+    <%= submit_tag "Search" %>
+  </p>
+<% end %>
+
+<% if @exercises.any? %>
+  <div class="card-grid">
+    <% @exercises.each do |exercise| %>
+      <div class="card">
+        <h3><%= link_to exercise.name, exercise_path(exercise) %></h3>
+        <p><strong>Category:</strong> <%= link_to exercise.category.name, category_path(exercise.category) %></p>
+        <p><strong>Equipment:</strong> <%= exercise.equipment %></p>
+        <p><strong>Sets:</strong> <%= exercise.sets %></p>
+        <p><strong>Reps:</strong> <%= exercise.reps %></p>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="list-box">
+    <p>No exercises found.</p>
+  </div>
+<% end %>

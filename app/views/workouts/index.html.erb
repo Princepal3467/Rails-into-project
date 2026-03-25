@@ -1,0 +1,42 @@
+<div class="hero">
+  <h1>Gym Workout Tracker</h1>
+  <p>Browse workouts, exercises, and categories in one clean fitness app.</p>
+</div>
+
+<%= form_with url: workouts_path, method: :get, local: true do %>
+  <p>
+    <%= label_tag :search, "Search workouts" %><br>
+    <%= text_field_tag :search, params[:search] %>
+  </p>
+
+  <p>
+    <%= label_tag :difficulty, "Filter by difficulty" %><br>
+    <%= select_tag :difficulty,
+        options_for_select(["Beginner", "Intermediate", "Advanced"], params[:difficulty]),
+        include_blank: "All Difficulties" %>
+  </p>
+
+  <p>
+    <%= submit_tag "Search" %>
+  </p>
+<% end %>
+
+<% if @workouts.any? %>
+  <div class="card-grid">
+    <% @workouts.each do |workout| %>
+      <div class="card">
+        <h3><%= link_to workout.name, workout_path(workout) %></h3>
+        <p class="meta">
+          <span class="badge"><%= workout.difficulty %></span>
+          <span><%= workout.duration_minutes %> minutes</span>
+        </p>
+        <p><%= workout.description %></p>
+        <p><strong>Exercises:</strong> <%= workout.exercises.count %></p>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="list-box">
+    <p>No workouts found.</p>
+  </div>
+<% end %>

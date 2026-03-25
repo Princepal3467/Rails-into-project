@@ -1,0 +1,30 @@
+<div class="detail-box">
+  <h1><%= @workout.name %></h1>
+
+  <p>
+    <span class="badge"><%= @workout.difficulty %></span>
+    <span class="meta"><strong>Duration:</strong> <%= @workout.duration_minutes %> minutes</span>
+  </p>
+
+  <p><strong>Description:</strong> <%= @workout.description %></p>
+</div>
+
+<h2>Exercises in This Workout</h2>
+
+<% if @workout_exercises.any? %>
+  <div class="card-grid">
+    <% @workout_exercises.each do |we| %>
+      <div class="card">
+        <h3><%= we.position %>. <%= link_to we.exercise.name, exercise_path(we.exercise) %></h3>
+        <p><strong>Category:</strong> <%= link_to we.exercise.category.name, category_path(we.exercise.category) %></p>
+        <p><strong>Sets:</strong> <%= we.exercise.sets %></p>
+        <p><strong>Reps:</strong> <%= we.exercise.reps %></p>
+        <p><strong>Equipment:</strong> <%= we.exercise.equipment %></p>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="list-box">
+    <p>No exercises assigned to this workout.</p>
+  </div>
+<% end %>

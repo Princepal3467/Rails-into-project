@@ -1,0 +1,20 @@
+<div class="detail-box">
+  <h1><%= @category.name %> Exercises</h1>
+</div>
+
+<% if @exercises.any? %>
+  <div class="card-grid">
+    <% @exercises.each do |exercise| %>
+      <div class="card">
+        <h3><%= link_to exercise.name, exercise_path(exercise) %></h3>
+        <p><strong>Equipment:</strong> <%= exercise.equipment %></p>
+        <p><strong>Sets:</strong> <%= exercise.sets %></p>
+        <p><strong>Reps:</strong> <%= exercise.reps %></p>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="list-box">
+    <p>No exercises found in this category.</p>
+  </div>
+<% end %>
