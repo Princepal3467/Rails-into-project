@@ -1,4 +1,4 @@
-# 🏋️ Gym Workout Tracker
+#  Gym Workout Tracker
 
 ## Project Overview
 The Gym Workout Tracker is a Ruby on Rails web application that helps users manage workouts and exercises. Users can explore different workout routines, view exercises by category, and understand how exercises are structured within workouts.
